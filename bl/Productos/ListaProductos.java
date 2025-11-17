@@ -1,10 +1,10 @@
-package InventarioAvance1.bl;
+package InventarioAvance1.bl.Productos;
 
 /**
  * Implementación de una lista enlazada simple para Productos.
  */
 public class ListaProductos {
-    private NodoProducto primero;
+    private Producto primero;
     private int size;
 
     //CONSTRUCTOR
@@ -16,7 +16,7 @@ public class ListaProductos {
     //METODOS ESTANDAR
 
     /// GETTERS
-    public NodoProducto getPrimero() {
+    public Producto getPrimero() {
         return primero;
     }
 
@@ -25,7 +25,7 @@ public class ListaProductos {
     }
 
     /// SETTERS
-    public void setHead(NodoProducto otroHead) {
+    public void setHead(Producto otroHead) {
         primero = otroHead;
     }
     /// No hice setter de size ya que no lo considero necesario.
@@ -40,18 +40,18 @@ public class ListaProductos {
     }
 
     public void insertarInicio(Producto p) {
-        NodoProducto nuevo = new NodoProducto(p);
+        Producto nuevo = new Producto(p);
         nuevo.setSiguiente(primero);
         primero = nuevo;
         size++;
     }
 
     public void insertarFin(Producto p) {
-        NodoProducto nuevo = new NodoProducto(p);
+        Producto nuevo = new Producto(p);
         if (isEmpty()) {
             primero = nuevo;
         } else {
-            NodoProducto actual = primero;
+            Producto actual = primero;
             while (actual.getSiguiente() != null) {
                 actual = actual.getSiguiente();
             }
@@ -60,8 +60,8 @@ public class ListaProductos {
         size++;
     }
 
-    private NodoProducto buscarNodoPorNombre(String nombre) {
-        NodoProducto actual = primero;
+    private Producto buscarNodoPorNombre(String nombre) {
+        Producto actual = primero;
         while (actual != null) {
             if (actual.getProducto().getNombre().equalsIgnoreCase(nombre.trim())) {
                 return actual;
@@ -77,7 +77,7 @@ public class ListaProductos {
                                      String nuevaCategoria,
                                      String nuevaFechaVenc,
                                      Integer nuevaCantidad) {
-        NodoProducto nodo = buscarNodoPorNombre(nombreBusqueda);
+        Producto nodo = buscarNodoPorNombre(nombreBusqueda);
         if (nodo == null) return false;
         Producto p = nodo.getProducto();
 
@@ -91,7 +91,7 @@ public class ListaProductos {
     }
 
     public boolean agregarImagenAProducto(String nombreBusqueda, String rutaImagen) {
-        NodoProducto nodo = buscarNodoPorNombre(nombreBusqueda);
+        Producto nodo = buscarNodoPorNombre(nombreBusqueda);
         if (nodo == null) return false;
         nodo.getProducto().agregarImagen(rutaImagen);
         return true;
@@ -103,7 +103,7 @@ public class ListaProductos {
             return 0.0;
         }
         System.out.println("----- REPORTE DE INVENTARIO -----");
-        NodoProducto actual = primero;
+        Producto actual = primero;
         double acumulado = 0.0;
         int index = 1;
         while (actual != null) {
@@ -124,7 +124,7 @@ public class ListaProductos {
             System.out.println("[Lista vacía]");
             return;
         }
-        NodoProducto actual = primero;
+        Producto actual = primero;
         int index = 1;
         while (actual != null) {
             System.out.printf("%d) %s%n", index, actual.getProducto().toString());

@@ -1,18 +1,31 @@
-package InventarioAvance1.bl;
+package InventarioAvance1.bl.Productos;
 
 import java.util.ArrayList;
 import java.util.Objects;
 
 public class Producto {
+
     private String nombre;
     private double precio;
     private String categoria;
     private String fechaVencimiento; // puede ser null si no aplica
-    private int cantidad; // unidades en inventario
+    private int    cantidad; // unidades en inventario
     private ArrayList<String> listaImagenes;
+
+    //atributos de la lista
+    private Producto producto;
     private Producto siguiente;
 
-    public Producto(String pNombre, double pPrecio, String pCategoria, String pFechaVencimiento, int pCantidad) {
+    //atributos arbol
+    private Producto izquierdo;
+    private Producto derecho;
+
+    public Producto(String pNombre,
+                    double   pPrecio,
+                    String   pCategoria,
+                    String   pFechaVencimiento,
+                    Producto pProducto,
+                    int      pCantidad) {
         nombre = pNombre;
         precio = pPrecio;
         categoria = pCategoria;
@@ -22,6 +35,15 @@ public class Producto {
         siguiente = null;
     }
 
+    public Producto (Producto otroProducto){ /// Este constructor es util para usarlo con los carritos
+        nombre = otroProducto.nombre;
+        precio = otroProducto.precio;
+        categoria = otroProducto.categoria;
+        fechaVencimiento = otroProducto.fechaVencimiento;
+        cantidad = otroProducto.cantidad;
+        listaImagenes = otroProducto.listaImagenes;
+        siguiente = otroProducto.siguiente;
+    }
     /* Cuando tengamos un poco mas de tiempo ponemos la fecha con LocalDate, ATT: Jose :P
     private LocalDate parseFecha(String s) {
         if (s == null || s.trim().isEmpty()) return null;
@@ -53,6 +75,14 @@ public class Producto {
 
     public int getCantidad() {
         return cantidad;
+    }
+
+    public Producto getSiguiente() {
+        return siguiente;
+    }
+
+    public Producto getProducto(){
+        return producto;
     }
 
     /// SETTERS
@@ -87,6 +117,10 @@ public class Producto {
 
     public double costoTotal() {
         return precio * cantidad;
+    }
+
+    public void setSiguiente(Producto otroSiguiente) {
+        siguiente = otroSiguiente;
     }
 
     @Override
